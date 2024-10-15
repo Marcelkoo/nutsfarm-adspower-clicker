@@ -5,7 +5,7 @@
 ![image](https://github.com/user-attachments/assets/eea1da7a-c439-4bf3-ba65-afb06e4dcba2)
 
 ## Что нужно для работы
-- Установленный браузер Adspower.
+- Установленный браузер [Adspower](https://share.adspower.net/marcel).
 - Вход в веб-версию Телеграма в Adspower ([https://web.telegram.org/](https://web.telegram.org/)).
 --------
 - Моя многоразовая реферальная ссылка для NUTS FARM: [https://t.me/nutsfarm_bot/nutscoin?startapp=ref_marcelkow](https://t.me/nutsfarm_bot/nutscoin?startapp=ref_marcelkow)
