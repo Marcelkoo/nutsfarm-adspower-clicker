@@ -3,6 +3,7 @@
 Этот скрипт автоматически запускает браузеры через Adspower и раз в 8 часов проходит по всем аккаунтам NUTS FARM, проверяет баланс и нажимает на кнопку для старта нового фарма.
 
 ![image](https://github.com/user-attachments/assets/3d521146-99a2-4fed-9026-3288daaf0e1c)
+![image](https://github.com/user-attachments/assets/eea1da7a-c439-4bf3-ba65-afb06e4dcba2)
 
 ## Что нужно для работы
 - Установленный браузер Adspower.
