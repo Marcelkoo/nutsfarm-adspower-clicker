@@ -1,7 +1,6 @@
-# Автоматизация Телеграм Бота для NUTS FARM
-
+# Автоматизация Telegram App NUTS FARM
 Этот скрипт автоматически запускает браузеры через Adspower и раз в 8 часов проходит по всем аккаунтам NUTS FARM, проверяет баланс и нажимает на кнопку для старта нового фарма.
-
+### Подписывайтесь на мой [Telegram-канал](https://t.me/marcelkow_crypto), чтобы быть в курсе новых софтов и будущих обновлений.
 ![image](https://github.com/user-attachments/assets/3d521146-99a2-4fed-9026-3288daaf0e1c)
 ![image](https://github.com/user-attachments/assets/eea1da7a-c439-4bf3-ba65-afb06e4dcba2)
 
@@ -33,4 +32,6 @@
 
 ## Поддержка
 
-По всем вопросам и ошибкам пишите [сюда](https://t.me/Marcelkow).
+### Подписывайтесь на мой [Telegram-канал](https://t.me/marcelkow_crypto), чтобы быть в курсе новых софтов и будущих обновлений.
+### Подписывайтесь на мой [Telegram-канал](https://t.me/marcelkow_crypto), чтобы быть в курсе новых софтов и будущих обновлений.
+### Подписывайтесь на мой [Telegram-канал](https://t.me/marcelkow_crypto), чтобы быть в курсе новых софтов и будущих обновлений.
