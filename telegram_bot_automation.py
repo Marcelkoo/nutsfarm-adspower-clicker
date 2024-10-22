@@ -41,7 +41,7 @@ class TelegramBotAutomation:
         search_area = self.wait_for_element(By.XPATH, '/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[3]/div[2]/div[2]/div[2]/div[1]/div[1]/div[1]/div[2]/ul[1]/a[1]/div[1]')
         search_area.click()
         logging.info(f"Account {self.serial_number}: Group searched.")
-        sleep_time = random.randint(5, 5)
+        sleep_time = random.randint(5, 7)
         logging.info(f"Sleeping for {sleep_time} seconds.")
         time.sleep(sleep_time)
 
@@ -49,6 +49,7 @@ class TelegramBotAutomation:
         try:
             link = self.wait_for_element(By.CSS_SELECTOR, "a[href*='https://t.me/nutsfarm_bot/nutscoin?startapp=ref_marcelkow']")
             link.click()
+            time.sleep(2)
         except NoSuchElementException:
             logging.error(f"Account {self.serial_number}: Link not found.")
             return
@@ -78,7 +79,9 @@ class TelegramBotAutomation:
         try:
             click_now_button = self.driver.find_element(By.XPATH, "//button[contains(text(), 'Click now')]")
             click_now_button.click()
-            time.sleep(5)
+            sleep_time = random.randint(5, 7)
+            logging.info(f"Sleeping for {sleep_time} seconds.")
+            time.sleep(sleep_time)
         except NoSuchElementException:
             logging.info(f"Account {self.serial_number}: 'Click now' button is unnecessary.")
 
@@ -126,23 +129,26 @@ class TelegramBotAutomation:
 
     def farming(self):
         try:
-            start_farming_button = self.driver.find_element(By.XPATH, "/html[1]/body[1]/div[1]/div[1]/main[1]/div[5]/button[1]")
+            start_farming_button = self.driver.find_element(By.XPATH, "/html[1]/body[1]/div[1]/div[1]/main[1]/div[5]/button[1] | /html[1]/body[1]/div[1]/div[1]/main[1]/div[4]/button[1]/div[1]")
             start_farming_button.click()
-            time.sleep(3)
+            sleep_time = random.randint(3, 4)
+            time.sleep(sleep_time)
         except NoSuchElementException:
             logging.info(f"Account {self.serial_number}: 'Start farming' button is not active. Farm probably already started.")
 
         try:
-            collect_button = self.driver.find_element(By.XPATH, "/html[1]/body[1]/div[1]/div[1]/main[1]/div[5]/button[1]")
+            collect_button = self.driver.find_element(By.XPATH, "/html[1]/body[1]/div[1]/div[1]/main[1]/div[5]/button[1] | /html[1]/body[1]/div[1]/div[1]/main[1]/div[4]/button[1]/div[1]")
             collect_button.click()
-            time.sleep(3)
+            sleep_time = random.randint(3, 4)
+            time.sleep(sleep_time)
             logging.info(f"Account {self.serial_number}: 'Collect' button clicked.")
         except NoSuchElementException:
             logging.info(f"Account {self.serial_number}: 'Collect' button is not active. Farm probably already started.")
 
         try:
-            start_farming_button = self.driver.find_element(By.XPATH, "/html[1]/body[1]/div[1]/div[1]/main[1]/div[5]/button[1]")
+            start_farming_button = self.driver.find_element(By.XPATH, "/html[1]/body[1]/div[1]/div[1]/main[1]/div[5]/button[1] | /html[1]/body[1]/div[1]/div[1]/main[1]/div[4]/button[1]/div[1]")
             start_farming_button.click()
-            time.sleep(3)
+            sleep_time = random.randint(3, 4)
+            time.sleep(sleep_time)
         except NoSuchElementException:
             logging.info(f"Account {self.serial_number}: 'Start farming' button is not active. Farm probably already started.")
