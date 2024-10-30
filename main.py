@@ -2,7 +2,7 @@ import logging
 import random
 import time
 from telegram_bot_automation import TelegramBotAutomation
-from utils import read_accounts_from_file, write_accounts_to_file, reset_balances, print_balance_table
+from utils import read_accounts_from_file, write_accounts_to_file, reset_balances, print_balance_table, update_balance_table
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -24,6 +24,7 @@ def process_accounts():
                     bot.send_message("https://t.me/secrettelegramchannelalllinks")
                     bot.click_link()
                     bot.preparing_account()
+                    bot.claim_daily_reward()
                     bot.get_balance()
                     bot.farming()
                     bot.get_time()
@@ -46,6 +47,7 @@ def process_accounts():
 
             if not success:
                 logging.warning(f"Account {account}: Moving to next account after 3 failed attempts.")
+                update_balance_table(account, 0)
 
         print_balance_table()
         logging.info("All accounts processed. Waiting 8 hours before restarting.")
