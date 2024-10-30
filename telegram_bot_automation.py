@@ -103,8 +103,8 @@ class TelegramBotAutomation:
             visible_balance_elements = parent_block.find_elements(By.XPATH, ".//span[contains(@class, 'index-module_num__j6XH3') and not(@aria-hidden='true')]")
             balance_text = ''.join([element.get_attribute("textContent").strip() for element in visible_balance_elements])
 
-            if len(balance_text) > 2:
-                balance_text = balance_text[:-2] + '.' + balance_text[-2:]
+            # if len(balance_text) > 2:
+            #     balance_text = balance_text[:-2] + '.' + balance_text[-2:]
 
             logging.info(f"Account {self.serial_number}: Current balance: {balance_text}")
             update_balance_table(self.serial_number, balance_text)
@@ -126,6 +126,30 @@ class TelegramBotAutomation:
         except NoSuchElementException:
             logging.info(f"Account {self.serial_number}: Time element not found.")
 
+    def claim_daily_reward(self):
+        try:
+            reward_element = self.driver.find_element(By.CSS_SELECTOR, ".reward-nuts span.font-tt-hoves-expanded")
+            reward_amount = reward_element.text
+            logging.info(f"Account {self.serial_number}: Daily reward amount: {reward_amount}")
+        except NoSuchElementException:
+            logging.info(f"Account {self.serial_number}: Daily reward amount not found.")
+
+        try:
+            days_element = self.driver.find_element(By.XPATH, "//span[contains(@class, 'bg-') and contains(@class, 'text-transparent')]")
+            consecutive_days = days_element.text
+            logging.info(f"Account {self.serial_number}: Consecutive days logged in: {consecutive_days}")
+        except NoSuchElementException:
+            logging.info(f"Account {self.serial_number}: Daily consecutive days not found.")
+
+        try:
+            claim_button = self.driver.find_element(By.XPATH, "//button[contains(@class, 'claim-btn') and (text()='Claim' or text()='Забрать')]")
+            claim_button.click()
+            logging.info(f"Account {self.serial_number}: Daily 'Claim' button clicked.")
+            sleep_time = random.randint(5, 8)
+            logging.info(f"Sleeping for {sleep_time} seconds.")
+            time.sleep(sleep_time)
+        except NoSuchElementException:
+            logging.info(f"Account {self.serial_number}: Daily'Claim' button not found.")
 
     def farming(self):
         try:
