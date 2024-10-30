@@ -36,7 +36,7 @@ class BrowserManager:
 
             request_url = (
                 f'http://local.adspower.net:50325/api/v1/browser/start?'
-                f'serial_number={self.serial_number}&ip_tab=1&headless=1'
+                f'serial_number={self.serial_number}&ip_tab=1'
             )
 
             response = requests.get(request_url)
@@ -49,6 +49,7 @@ class BrowserManager:
 
                 service = Service(executable_path=webdriver_path)
                 self.driver = webdriver.Chrome(service=service, options=chrome_options)
+                time.sleep(2)
                 self.driver.set_window_size(600, 720)
                 logging.info(f"Account {self.serial_number}: Browser started successfully.")
                 return True
