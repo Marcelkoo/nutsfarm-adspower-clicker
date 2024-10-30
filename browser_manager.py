@@ -36,7 +36,7 @@ class BrowserManager:
 
             request_url = (
                 f'http://local.adspower.net:50325/api/v1/browser/start?'
-                f'serial_number={self.serial_number}&ip_tab=1'
+                f'serial_number={self.serial_number}&ip_tab=1&headless=1'
             )
 
             response = requests.get(request_url)
