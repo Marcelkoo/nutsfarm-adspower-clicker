@@ -153,7 +153,7 @@ class TelegramBotAutomation:
 
     def farming(self):
         try:
-            start_farming_button = self.driver.find_element(By.XPATH, "/html[1]/body[1]/div[1]/div[1]/main[1]/div[5]/button[1] | /html[1]/body[1]/div[1]/div[1]/main[1]/div[4]/button[1]/div[1]")
+            start_farming_button = self.driver.find_element(By.XPATH, "/html[1]/body[1]/div[1]/div[1]/main[1]/div[5]/button[1] | /html[1]/body[1]/div[1]/div[1]/main[1]/div[4]/button[1]/div[1] | /html[1]/body[1]/div[1]/div[1]/main[1]/div[6]/button[1]")
             start_farming_button.click()
             sleep_time = random.randint(3, 4)
             time.sleep(sleep_time)
@@ -161,7 +161,7 @@ class TelegramBotAutomation:
             logging.info(f"Account {self.serial_number}: 'Start farming' button is not active. Farm probably already started.")
 
         try:
-            collect_button = self.driver.find_element(By.XPATH, "/html[1]/body[1]/div[1]/div[1]/main[1]/div[5]/button[1] | /html[1]/body[1]/div[1]/div[1]/main[1]/div[4]/button[1]/div[1]")
+            collect_button = self.driver.find_element(By.XPATH, "/html[1]/body[1]/div[1]/div[1]/main[1]/div[5]/button[1] | /html[1]/body[1]/div[1]/div[1]/main[1]/div[4]/button[1]/div[1] | /html[1]/body[1]/div[1]/div[1]/main[1]/div[6]/button[1]")
             collect_button.click()
             sleep_time = random.randint(3, 4)
             time.sleep(sleep_time)
@@ -170,7 +170,7 @@ class TelegramBotAutomation:
             logging.info(f"Account {self.serial_number}: 'Collect' button is not active. Farm probably already started.")
 
         try:
-            start_farming_button = self.driver.find_element(By.XPATH, "/html[1]/body[1]/div[1]/div[1]/main[1]/div[5]/button[1] | /html[1]/body[1]/div[1]/div[1]/main[1]/div[4]/button[1]/div[1]")
+            start_farming_button = self.driver.find_element(By.XPATH, "/html[1]/body[1]/div[1]/div[1]/main[1]/div[5]/button[1] | /html[1]/body[1]/div[1]/div[1]/main[1]/div[4]/button[1]/div[1] | /html[1]/body[1]/div[1]/div[1]/main[1]/div[6]/button[1]")
             start_farming_button.click()
             sleep_time = random.randint(3, 4)
             time.sleep(sleep_time)
