@@ -7,12 +7,12 @@ from utils import read_accounts_from_file, write_accounts_to_file, reset_balance
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def process_accounts():
+    #time.sleep(6000)
     while True:
         reset_balances()
         accounts = read_accounts_from_file()
         random.shuffle(accounts)
         write_accounts_to_file(accounts)
-
         for account in accounts:
             retry_count = 0
             success = False
@@ -24,6 +24,7 @@ def process_accounts():
                     bot.send_message("https://t.me/secrettelegramchannelalllinks")
                     bot.click_link()
                     bot.preparing_account()
+                    bot.unfreeze()
                     bot.claim_daily_reward()
                     bot.get_balance()
                     bot.farming()
