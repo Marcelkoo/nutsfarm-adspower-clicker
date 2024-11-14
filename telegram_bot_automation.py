@@ -176,3 +176,35 @@ class TelegramBotAutomation:
             time.sleep(sleep_time)
         except NoSuchElementException:
             logging.info(f"Account {self.serial_number}: 'Start farming' button is not active. Farm probably already started.")
+
+    def unfreeze(self):
+        try:
+            streak_element = self.driver.find_element(By.XPATH, "//span[contains(text(), 'Your progress:') or contains(text(), 'Ваш прогресс:')]/following-sibling::span")
+            streak = int(streak_element.text)
+            logging.info(f"Account {self.serial_number}: Current streak: {streak}")
+
+            if streak > 15:
+                try:
+                    freeze_button = self.driver.find_element(By.XPATH, "//button[contains(text(), 'Freeze for') or contains(text(), 'Заморозить за')]")
+                    freeze_button.click()
+                    logging.info(f"Account {self.serial_number}: 'Freeze for' button clicked. Freezing for {streak} days. Sleeping for 5 seconds.")
+                    time.sleep(5)
+                except NoSuchElementException:
+                    logging.error(f"Account {self.serial_number}: 'Freeze for' button not found.")
+                except WebDriverException as e:
+                    logging.exception(f"Account {self.serial_number}: WebDriverException occurred while clicking 'Freeze for' button")
+            else:
+                try:
+                    lose_progress_button = self.driver.find_element(By.XPATH, "//button[contains(text(), 'Lose progress') or contains(text(), 'Потерять прогресс')]")
+                    lose_progress_button.click()
+                    logging.info(f"Account {self.serial_number}: 'Lose progress' button clicked. Sleeping for 5 seconds.")
+                    time.sleep(5)
+                except NoSuchElementException:
+                    logging.error(f"Account {self.serial_number}: 'Lose progress' button not found.")
+                except WebDriverException as e:
+                    logging.exception(f"Account {self.serial_number}: WebDriverException occurred while clicking 'Lose progress' button")
+
+        except NoSuchElementException:
+            logging.error(f"Account {self.serial_number}: Streak element not found.")
+        except ValueError:
+            logging.error(f"Account {self.serial_number}: Unable to convert streak to integer.")
