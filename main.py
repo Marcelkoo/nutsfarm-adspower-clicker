@@ -7,7 +7,6 @@ from utils import read_accounts_from_file, write_accounts_to_file, reset_balance
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def process_accounts():
-    #time.sleep(6000)
     while True:
         reset_balances()
         accounts = read_accounts_from_file()
@@ -29,6 +28,7 @@ def process_accounts():
                     bot.get_balance()
                     bot.farming()
                     bot.get_time()
+                    bot.perform_quests()
                     bot.get_balance()
                     logging.info(f"Account {account}: Processing completed successfully.")
                     success = True  
