@@ -240,10 +240,10 @@ class TelegramBotAutomation:
                         break
 
                 except WebDriverException as e:
-                    logging.warning(f"Account {self.serial_number}: WebDriver exception in quest: {str(e)}")
+                    logging.warning(f"Account {self.serial_number}: WebDriver exception in quest")
                     break
                 except Exception as e:
-                    logging.error(f"Account {self.serial_number}: Unexpected error in quest: {str(e)}")
+                    logging.error(f"Account {self.serial_number}: Unexpected error in quest")
                     break
 
         finally:
@@ -290,7 +290,7 @@ class TelegramBotAutomation:
             logging.info(f"Account {self.serial_number}: Quest window did not appear in time.")
             return False
         except Exception as e:
-            logging.error(f"Account {self.serial_number}: Error in quest window interaction: {str(e)}")
+            logging.error(f"Account {self.serial_number}: Error in quest window interaction:")
             return False
 
     def has_reward(self, button):
