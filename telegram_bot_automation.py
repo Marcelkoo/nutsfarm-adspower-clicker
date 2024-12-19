@@ -129,6 +129,15 @@ class TelegramBotAutomation:
 
     def claim_daily_reward(self):
         try:
+            switch_to_main = self.driver.find_element(By.XPATH, "/html[1]/body[1]/div[1]/div[1]/footer[1]/div[1]/a[1]")
+            switch_to_main.click()
+            sleep_time = random.randint(3, 4)
+            logging.info(f"Sleeping for {sleep_time} seconds after clicking the button.")
+            time.sleep(sleep_time)
+        except NoSuchElementException:
+            logging.info(f"Account {self.serial_number}: Button not found, proceeding with daily reward claim.")
+
+        try:
             reward_element = self.driver.find_element(By.CSS_SELECTOR, ".reward-nuts span.font-tt-hoves-expanded")
             reward_amount = reward_element.text
             logging.info(f"Account {self.serial_number}: Daily reward amount: {reward_amount}")
@@ -179,6 +188,14 @@ class TelegramBotAutomation:
             logging.info(f"Account {self.serial_number}: 'Start farming' button is not active. Farm probably already started.")
 
     def unfreeze(self):
+        try:
+            claim_daily_button = self.driver.find_element(By.XPATH, "//div[contains(@class, 'flex h-[50px] w-full items-center justify-center')]")
+            claim_daily_button.click()
+            logging.info(f"Account {self.serial_number}: Claim daily button clicked.")
+            time.sleep(2)
+        except NoSuchElementException:
+            logging.info(f"Account {self.serial_number}: Claim daily button not found.")
+
         try:
             streak_element = self.driver.find_element(By.XPATH, "//span[contains(text(), 'Your progress:') or contains(text(), 'Ваш прогресс:')]/following-sibling::span")
             streak = int(streak_element.text)
