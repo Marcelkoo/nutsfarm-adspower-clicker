@@ -128,14 +128,14 @@ class TelegramBotAutomation:
             logging.info(f"Account {self.serial_number}: Time element not found.")
 
     def claim_daily_reward(self):
-        try:
-            switch_to_main = self.driver.find_element(By.XPATH, "/html[1]/body[1]/div[1]/div[1]/footer[1]/div[1]/a[1]")
-            switch_to_main.click()
-            sleep_time = random.randint(3, 4)
-            logging.info(f"Sleeping for {sleep_time} seconds after clicking the button.")
-            time.sleep(sleep_time)
-        except NoSuchElementException:
-            logging.info(f"Account {self.serial_number}: Button not found, proceeding with daily reward claim.")
+        # try:
+        #     switch_to_main = self.driver.find_element(By.XPATH, "/html[1]/body[1]/div[1]/div[1]/footer[1]/div[1]/a[1]")
+        #     switch_to_main.click()
+        #     sleep_time = random.randint(3, 4)
+        #     logging.info(f"Sleeping for {sleep_time} seconds after clicking the button.")
+        #     time.sleep(sleep_time)
+        # except NoSuchElementException:
+        #     logging.info(f"Account {self.serial_number}: Button not found, proceeding with daily reward claim.")
 
         try:
             reward_element = self.driver.find_element(By.CSS_SELECTOR, ".reward-nuts span.font-tt-hoves-expanded")
@@ -189,7 +189,7 @@ class TelegramBotAutomation:
 
     def unfreeze(self):
         try:
-            claim_daily_button = self.driver.find_element(By.XPATH, "//div[contains(@class, 'flex h-[50px] w-full items-center justify-center')]")
+            claim_daily_button = self.driver.find_element(By.CSS_SELECTOR, "button.group.flex.h-14.items-start.outline-none.claim-btn")
             claim_daily_button.click()
             logging.info(f"Account {self.serial_number}: Claim daily button clicked.")
             time.sleep(2)
@@ -197,35 +197,53 @@ class TelegramBotAutomation:
             logging.info(f"Account {self.serial_number}: Claim daily button not found.")
 
         try:
-            streak_element = self.driver.find_element(By.XPATH, "//span[contains(text(), 'Your progress:') or contains(text(), 'Ваш прогресс:')]/following-sibling::span")
+            reward_element = self.driver.find_element(By.CSS_SELECTOR, ".reward-nuts span.font-tt-hoves-expanded")
+            reward_amount = reward_element.text
+            logging.info(f"Account {self.serial_number}: Daily reward amount: {reward_amount}")
+        except NoSuchElementException:
+            logging.info(f"Account {self.serial_number}: Daily reward amount not found.")
+
+        streak = 0
+        progress = 0
+
+        try:
+            streak_element = self.driver.find_element(By.CSS_SELECTOR, "span.bg-\\[linear-gradient\\(to_bottom\\,\\#FFF6D7_1\\%\\,\\#FFF982_59\\%\\,\\#FB8329_84\\%\\)\\].text-transparent")
             streak = int(streak_element.text)
             logging.info(f"Account {self.serial_number}: Current streak: {streak}")
-
-            if streak > 15:
-                try:
-                    freeze_button = self.driver.find_element(By.CSS_SELECTOR, "div.bg-gradient-to-br.from-\\[\\#8BEDFC\\].to-\\[\\#6DABF9\\]")
-                    freeze_button.click()
-                    logging.info(f"Account {self.serial_number}: 'Freeze for' button clicked. Freezing for {streak} days. Sleeping for 5 seconds.")
-                    time.sleep(5)
-                except NoSuchElementException:
-                    logging.error(f"Account {self.serial_number}: 'Freeze for' button not found.")
-                except WebDriverException as e:
-                    logging.exception(f"Account {self.serial_number}: WebDriverException occurred while clicking 'Freeze for' button")
-            else:
-                try:
-                    lose_progress_button = self.driver.find_element(By.CSS_SELECTOR, "div.bg-\\[\\#283649\\].text-white")
-                    lose_progress_button.click()
-                    logging.info(f"Account {self.serial_number}: 'Lose progress' button clicked. Sleeping for 5 seconds.")
-                    time.sleep(5)
-                except NoSuchElementException:
-                    logging.error(f"Account {self.serial_number}: 'Lose progress' button not found.")
-                except WebDriverException as e:
-                    logging.exception(f"Account {self.serial_number}: WebDriverException occurred while clicking 'Lose progress' button")
-
         except NoSuchElementException:
             logging.error(f"Account {self.serial_number}: Streak element not found.")
         except ValueError:
             logging.error(f"Account {self.serial_number}: Unable to convert streak to integer.")
+
+        try:
+            progress_element = self.driver.find_element(By.CSS_SELECTOR, "div.flex.items-center.gap-1\\.5 span.font-tt-hoves-expanded span")
+            progress = int(progress_element.text)
+            logging.info(f"Account {self.serial_number}: Your progress: {progress}")
+        except NoSuchElementException:
+            logging.info(f"Account {self.serial_number}: Progress element not found.")
+        except ValueError:
+            logging.error(f"Account {self.serial_number}: Unable to convert progress to integer.")
+
+        if streak > 15 or progress > 15:
+            try:
+                freeze_button = self.driver.find_element(By.CSS_SELECTOR, "button.group.relative.flex.h-14.w-full.items-start.outline-none div.bg-gradient-to-br.from-\\[\\#8BEDFC\\].to-\\[\\#6DABF9\\]")
+                freeze_button.click()
+                logging.info(f"Account {self.serial_number}: 'Freeze for' button clicked. Freezing for {max(streak, progress)} days. Sleeping for 5 seconds.")
+                time.sleep(5)
+            except NoSuchElementException:
+                logging.error(f"Account {self.serial_number}: 'Freeze for' button not found.")
+            except WebDriverException as e:
+                logging.exception(f"Account {self.serial_number}: WebDriverException occurred while clicking 'Freeze for' button")
+        else:
+            try:
+                lose_progress_button = self.driver.find_element(By.CSS_SELECTOR, "button.group.relative.flex.h-14.w-full.items-start.outline-none div.bg-\\[\\#283649\\]")
+                lose_progress_button.click()
+                logging.info(f"Account {self.serial_number}: 'Lose progress' button clicked. Sleeping for 5 seconds.")
+                time.sleep(5)
+            except NoSuchElementException:
+                logging.error(f"Account {self.serial_number}: 'Lose progress' button not found.")
+            except WebDriverException as e:
+                logging.exception(f"Account {self.serial_number}: WebDriverException occurred while clicking 'Lose progress' button")
 
     def perform_quests(self):
         logging.info(f"Account {self.serial_number}: Looking for available tasks.")
